@@ -1,0 +1,15 @@
+import { PositionOutput } from "@/dto/types.dto";
+import axiosIns from "@/plugins/axios";
+
+const headers = {
+  "Access-Control-Allow-Origin": "*",
+  "X-Requested-With": "XMLHttpRequest",
+  Accept: "application/json",
+  // "Content-Type": "application/json",
+};
+
+export const getAllPositions = async (): Promise<PositionOutput> => {
+  const { data } = (await axiosIns.get(`/positions`, { headers })).data;
+
+  return data;
+};
