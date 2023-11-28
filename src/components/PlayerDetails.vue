@@ -1,6 +1,6 @@
 <template>
-  <div class="card">
-    <div class="picture">
+  <div class="details-card">
+    <div class="details-picture">
       <img src="./../assets/images/avatar.png" alt="player_picture" />
     </div>
     <div class="infos">

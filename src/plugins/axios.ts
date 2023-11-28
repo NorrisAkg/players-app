@@ -1,18 +1,29 @@
-import axios from "axios";
+import axios, { AxiosRequestHeaders, InternalAxiosRequestConfig } from "axios";
 
+interface CustomHeaders {
+  "Access-Control-Allow-Origin": string;
+  "X-Requested-With": string;
+  Accept: string;
+  "Content-Type": string;
+}
 
 const axiosIns = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: process.env.VUE_APP_BASE_URL,
 });
 
+axiosIns.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+axiosIns.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+axiosIns.defaults.headers.common["Accept"] = "application/json";
+
 axiosIns.interceptors.request.use(
-  function (config) {
-    config.headers = {
-      "Access-Control-Allow-Origin": "*",
-      "X-Requested-With": "XMLHttpRequest",
-      Accept: "application/json",
-      // "Content-Type": "application/json",
-    };
+  function (config: InternalAxiosRequestConfig<CustomHeaders>) {
+    // config.headers = {
+    // ...config.headers,
+    // "Access-Control-Allow-Origin": "*",
+    // "X-Requested-With": "XMLHttpRequest",
+    // Accept: "application/json",
+    // "Content-Type": "application/json",
+    // };
     return config;
   },
   function (error) {

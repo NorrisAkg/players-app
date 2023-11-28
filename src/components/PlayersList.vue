@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <PlayerCard />
+    <PlayerCard @click="router.push('/details')" />
     <PlayerCard />
     <PlayerCard />
     <PlayerCard />
@@ -14,17 +14,21 @@
 import { onMounted, ref } from "vue";
 import PlayerCard from "./PlayerCard.vue";
 import { LengthAwarePaginator, PlayerOutput } from "@/dto/types.dto";
-import {getAllPlayers} from './../api/player'
+import { getAllPlayers } from "./../api/player";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const fetching = ref(false);
-const players = ref<PlayerOutput[]>([])
+const players = ref<PlayerOutput[]>([]);
 const fetchPlayers = () => {
-    fetching.value = true
-    getAllPlayers().then((response) => {
-        console.log(response)
-    })
-}
+  console.log("fetching");
+  fetching.value = true;
+  getAllPlayers().then((response) => {
+    console.log(response);
+  });
+};
 
-onMounted(() => fetchPlayers)
+onMounted(fetchPlayers);
 </script>
 <style scoped></style>
