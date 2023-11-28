@@ -8,16 +8,32 @@
           <option value="">Positions</option>
         </select>
       </div>
-      <button class="add-button">
+      <button @click="isDialogVisible = true" class="add-button">
         <span><i class="tabler-plus"></i></span> Ajouter
       </button>
     </div>
-    <PlayersList />
+    <PlayersList v-model:can-fetch="canFetchList" />
   </div>
+
+  <AddPlayerModal
+    v-if="isDialogVisible"
+    v-model:is-dialog-visible="isDialogVisible"
+    @success="onCreateSucceed"
+  />
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
 import PlayersList from "@/components/PlayersList.vue";
+import AddPlayerModal from "@/components/AddPlayerModal.vue";
+
+const isDialogVisible = ref(false);
+const canFetchList = ref(false);
+
+const onCreateSucceed = () => {
+  canFetchList.value = true;
+  isDialogVisible.value = false;
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

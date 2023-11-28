@@ -8,7 +8,7 @@ const headers = {
   // "Content-Type": "application/json",
 };
 
-export const getAllPositions = async (): Promise<PositionOutput> => {
+export const getAllPositions = async (): Promise<Array<PositionOutput>> => {
   const { data } = (await axiosIns.get(`/positions`, { headers })).data;
 
   return data;

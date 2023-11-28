@@ -35,6 +35,6 @@ export interface PlayerOutput {
   firstname: string;
   lastname: string;
   jersey_number: number;
-  position_id: PositionOutput["id"];
+  position: PositionOutput;
   picture?: string;
 }
