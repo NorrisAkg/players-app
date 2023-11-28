@@ -16,7 +16,13 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { onMounted } from "vue";
+
+onMounted(() => {
+  console.log("details mounted");
+});
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped></style>

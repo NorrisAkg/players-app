@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="player-card">
     <div class="picture">
       <img src="./../assets/images/avatar.png" alt="player_picture" />
     </div>

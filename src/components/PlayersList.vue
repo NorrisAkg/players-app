@@ -1,60 +1,94 @@
 <template>
-  <div
-    class="container"
-    :model-value="props.canFetch"
-    @update:model-value="updateCanFetchProp"
-  >
-    <div v-for="(player, index) in players" :key="index">
-      <PlayerCard
-        :player="player"
-        @click="router.push(`/details/${player.id}`)"
-      />
-    </div>
+  <VRow>
+    <VCol cols="12" md="3">
+      <VTextField v-model="name" placeholder="Filter by player name" />
+    </VCol>
+    <VCol cols="12" md="3">
+      <VAutocomplete
+        placeholder="Filter by position"
+        :loading="fetchingPositions"
+        :disabled="fetchingPositions"
+        :items="positions"
+        item-title="label"
+        clearable
+        v-model="positionSelected"
+        return-object
+      >
+      </VAutocomplete>
+    </VCol>
+    <VSpacer />
+    <VBtn @click="isDialogVisible = true" class="add-button"> Add player </VBtn>
+    <!-- <V @click="isDialogVisible = true" class="add-button">
+      <span><i class="tabler-plus"></i></span> Ajouter
+    </button> -->
+  </VRow>
 
-    <!-- <PlayerCard /> -->
+  <div class="container" v-for="(player, index) in players" :key="index">
+    <PlayerCard :player="player" @click="router.push(`details/${player.id}`)" />
   </div>
+
+  <!-- <PlayerCard /> -->
+
+  <AddPlayerModal
+    v-if="isDialogVisible"
+    v-model:is-dialog-visible="isDialogVisible"
+    @success="onCreateSucceed"
+  />
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from "vue";
 import PlayerCard from "./PlayerCard.vue";
-import { PlayerOutput } from "@/dto/types.dto";
+import { PlayerOutput, PositionOutput } from "@/dto/types.dto";
 import { getAllPlayers } from "./../api/player";
 import { useRouter } from "vue-router";
-
-interface Emit {
-  (e: "update:canFetch", value: boolean): void;
-  (e: "success"): void;
-}
+import AddPlayerModal from "./AddPlayerModal.vue";
+import { getAllPositions } from "@/api/position";
 
 const router = useRouter();
 
-const emit = defineEmits<Emit>();
-
 const props = defineProps<{ canFetch: boolean }>();
 
-const fetching = ref(false);
+const fetchingPlayers = ref(false);
+const fetchingPositions = ref(false);
+const positions = ref<PositionOutput[]>([]);
 const players = ref<PlayerOutput[]>([]);
+const isDialogVisible = ref(false);
+const name = ref<string>();
+const positionSelected = ref<PositionOutput>();
 
-const updateCanFetchProp = (value: boolean) => {
-  emit("update:canFetch", value);
+const fetchPositions = () => {
+  fetchingPositions.value = true;
+  getAllPositions()
+    .then((response) => {
+      positions.value = response;
+    })
+    .catch()
+    .finally(() => (fetchingPositions.value = false));
 };
+
 const fetchPlayers = () => {
-  console.log("fetching");
-  fetching.value = true;
-  getAllPlayers().then((response) => {
-    players.value = response.data;
-    console.log(response);
-  }).catch(() => {}).finally(() => fetching.value = false);
+  fetchingPlayers.value = true;
+  getAllPlayers(name.value, positionSelected.value?.id)
+    .then((response) => {
+      players.value = response.data;
+      console.log(response);
+    })
+    .catch(() => {})
+    .finally(() => (fetchingPlayers.value = false));
 };
 
-watch(
-  () => props.canFetch,
-  (val) => {
-    if (val) fetchPlayers();
-  }
-);
+watch(name, fetchPlayers);
+watch(positionSelected, fetchPlayers);
 
-onMounted(fetchPlayers);
+const onCreateSucceed = () => {
+  isDialogVisible.value = false;
+  fetchPlayers();
+};
+
+onMounted(() => {
+  fetchPositions();
+  fetchPlayers();
+});
 </script>
 <style scoped></style>

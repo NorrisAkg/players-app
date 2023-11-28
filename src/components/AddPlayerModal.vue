@@ -6,7 +6,7 @@
       width="500"
     >
       <!-- Dialog Content -->
-      <VCard title="Nouvelle équipe">
+      <VCard title="Add new player">
         <VCardText>
           <VForm @submit.prevent="onSubmit">
             <VRow>

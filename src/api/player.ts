@@ -12,10 +12,14 @@ const headers = {
   // "Content-Type": "application/json",
 };
 
-export const getAllPlayers = async (): Promise<
+export const getAllPlayers = async (name?: string, positionId?: number): Promise<
   LengthAwarePaginator<PlayerOutput>
 > => {
-  const { data } = (await axiosIns.get(`/players`, { headers })).data;
+  const params = {
+    name,
+    position: positionId
+  };
+  const { data } = (await axiosIns.get(`/players`, { params, headers })).data;
 
   return data;
 };

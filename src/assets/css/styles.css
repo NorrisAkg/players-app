@@ -27,7 +27,7 @@
   justify-content: space-between;
 }
 
-.main .list-header .filter input,
+/* .main .list-header .filter input,
 .main .list-header .filter select {
   width: 300px;
   padding: 10px;
@@ -36,20 +36,20 @@
   border-radius: 6px;
   background: none;
   font-size: 16px;
-}
+} */
 
 .main .list-header .filter select {
   margin-left: 20px;
 }
 
-.main .list-header button {
+.add-button {
   padding: 10px;
   font-size: 16px;
   background: none;
   border: none;
   outline: none;
   background-color: rgb(116, 187, 116);
-  color: #fff;
+  color: #fff !important;
   font-weight: 600;
   border-radius: 6px;
 }
@@ -61,7 +61,7 @@
   flex-wrap: wrap;
 }
 
-.card {
+.player-card {
   background-color: var(--grey);
   padding: 20px;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -72,7 +72,7 @@
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.33);
 }
 
-.card .picture {
+.player-card .picture {
   margin: auto;
   width: 150px;
   height: 150px;
@@ -81,7 +81,7 @@
   border-radius: 100%;
 }
 
-.card .picture img {
+.player-card .picture img {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -89,16 +89,16 @@
   height: 100%;
 }
 
-.card .infos {
+.player-card .infos {
   margin-top: 30px;
   text-align: left;
 }
 
-.card .infos p {
+.player-card .infos p {
   margin-top: 10px;
 }
 
-.card .infos p .info-key {
+.player-card .infos p .info-key {
   font-weight: 600;
 }
 
