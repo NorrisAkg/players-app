@@ -23,8 +23,15 @@
     </button> -->
   </VRow>
 
-  <div class="container" v-for="(player, index) in players" :key="index">
-    <PlayerCard :player="player" @click="router.push(`details/${player.id}`)" />
+  <div class="container">
+    <!-- <div style="" v-for="(player, index) in players" :key="index"> -->
+    <PlayerCard
+      v-for="(player, index) in players"
+      :key="index"
+      :player="player"
+      @click="router.push(`infos/${player.id}`)"
+    />
+    <!-- </div> -->
   </div>
 
   <!-- <PlayerCard /> -->

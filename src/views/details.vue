@@ -1,25 +1,29 @@
 <template>
   <div class="main">
     <h2>Player Norris details</h2>
-    <div class="list-header">
-      <div class="filter">
-        <input type="text" />
-        <select type="text">
-          <option value="">Positions</option>
-        </select>
-      </div>
-      <button class="add-button">
-        <span><i class="tabler-plus"></i></span> Ajouter
-      </button>
-    </div>
-    <PlayersList />
+    
+    <PlayerDetails v-if="player" :player="player!" />
   </div>
 </template>
 
 <script setup lang="ts">
+import PlayerDetails from "@/components/PlayerDetails.vue";
+import { PlayerOutput } from "@/dto/types.dto";
+import { ref } from "vue";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
+import {getPlayer} from "@/api/player"
+
+const route = useRoute()
+
+const player = ref<PlayerOutput>(<PlayerOutput>{})
 
 onMounted(() => {
+  getPlayer(route.params?.id!.toString()).then((response) => {
+    console.log(response)
+    player.value = response
+  })
+  console.log(route.params?.id!.toString())
   console.log("details mounted");
 });
 </script>

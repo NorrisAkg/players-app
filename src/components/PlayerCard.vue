@@ -5,19 +5,19 @@
     </div>
     <div class="infos">
       <p>
-        <span class="info-key">Firstname:</span>
+        <span class="info-key">Firstname: </span>
         <span class="info-value">{{ player.firstname }}</span>
       </p>
       <p>
-        <span class="info-key">Lastname:</span>
+        <span class="info-key">Lastname: </span>
         <span class="info-value">{{ player.lastname }}</span>
       </p>
       <p>
-        <span class="info-key">Position:</span>
+        <span class="info-key">Position: </span>
         <span class="info-value">{{ player.position.label }}</span>
       </p>
       <p>
-        <span class="info-key">Jersey number:</span>
+        <span class="info-key">Jersey number: </span>
         <span class="info-value">{{ player.jersey_number }}</span>
       </p>
     </div>

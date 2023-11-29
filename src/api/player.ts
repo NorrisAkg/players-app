@@ -29,3 +29,9 @@ export const addPlayer = async (body: PlayerInput): Promise<PlayerOutput> => {
 
   return data;
 };
+
+export const getPlayer = async (id: PlayerOutput['id']): Promise<PlayerOutput> => {
+  const { data } = (await axiosIns.get(`/players/${id}`, { headers })).data;
+
+  return data;
+};
